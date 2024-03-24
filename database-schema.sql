@@ -23,11 +23,9 @@ create table talents (
     gen_id VARCHAR(8) NOT NULL,
     talent_english_fname VARCHAR(20),
     talent_english_lname VARCHAR(20),
-    talent_japanese_fname VARCHAR(20),
-    talent_japanese_lname VARCHAR(20),
+    talent_japanese_name VARCHAR(20),
     debut_date DATE,
     youtube_link VARCHAR(128),
-    twitch_link VARCHAR(128),
     twitter_link VARCHAR(128),
 
     primary key (talent_id),
@@ -39,7 +37,6 @@ create table albums (
     talent_id VARCHAR(8) NOT NULL,
     album_name VARCHAR(64),
     youtube_link VARCHAR(128),
-    spotify_link VARCHAR(128),
 
     primary key (album_id),
     foreign key (talent_id) references talents(talent_id) on delete restrict on update cascade
@@ -49,7 +46,6 @@ create table tracks (
     track_id VARCHAR(8) NOT NULL,
     track_name VARCHAR(64),
     youtube_link VARCHAR(128),
-    spotify_link VARCHAR(128),
     is_cover BOOLEAN,
 
     primary key (track_id)
@@ -81,13 +77,4 @@ create table album_to_track (
     primary key (track_id, album_id),
     foreign key (track_id) references tracks(track_id) on delete restrict on update cascade,
     foreign key (album_id) references albums(album_id) on delete restrict on update cascade
-);
-
-create table concert_to_track (
-    track_id VARCHAR(8) NOT NULL,
-    concert_id VARCHAR(8) NOT NULL,
-
-    primary key (track_id, concert_id),
-    foreign key (track_id) references tracks(track_id) on delete restrict on update cascade,
-    foreign key (concert_id) references concerts(concert_id) on delete restrict on update cascade
 );
